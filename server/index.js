@@ -20,11 +20,12 @@ const createApp = () => {
 
   // Appends auth and api to the appropriate routes
   // app.use('/auth', require('./auth'))
-  // app.use('/api', require('./api'))
+  app.use('/api', require('./api'))
 
   // Any remaining requests with an extension (.js, .css, etc.) send 404 to client
   app.use((req, res, next) => {
     if (path.extname(req.path).length) {
+      console.log('the 404 err')
       const err = new Error('Not found');
       err.status = 404;
       next(err);
@@ -35,6 +36,7 @@ const createApp = () => {
 
   // If api route is not found sends index.html
   app.use('*', (req, res) => {
+    console.log('inside the api not found route')
     res.sendFile(path.join(__dirname, '..', 'public/index.html'));
   });
 
@@ -61,7 +63,7 @@ const syncDb = () => db.sync();
 
 // When called this will sync the database and create the app and start listening for request
 async function bootApp() {
-  await syncDb()
+  // await syncDb()
   await createApp()
   await startListening()
 }
