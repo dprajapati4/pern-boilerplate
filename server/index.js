@@ -12,7 +12,7 @@ const createApp = () => {
   app.use(morgan('dev'));
 
   // Static file serving middleware
-  app.use(express.static(path.join(__dirname, './path/to/static/assets')));
+  app.use(express.static(path.join(__dirname, '../public')));
 
   // Body parsing middleware
   app.use(express.json());
@@ -25,7 +25,7 @@ const createApp = () => {
   // Any remaining requests with an extension (.js, .css, etc.) send 404 to client
   app.use((req, res, next) => {
     if (path.extname(req.path).length) {
-      console.log('the 404 err')
+      console.log('Error if requesting request w/extension of .js or .css')
       const err = new Error('Not found');
       err.status = 404;
       next(err);
@@ -37,12 +37,12 @@ const createApp = () => {
   // If api route is not found sends index.html
   app.use('*', (req, res) => {
     console.log('inside the api not found route')
-    res.sendFile(path.join(__dirname, '..', 'public/index.html'));
+    res.sendFile(path.join(__dirname, '..', '/public/index.html'));
   });
 
   // Error handling endware
   app.use((err, req, res, next) => {
-    console.error(err);
+    console.error('Endware erroree',err);
     console.error(err.stack);
     res.status(err.status || 500).send(err.message || 'Internal server error');
   });
