@@ -1,11 +1,13 @@
 {
   "name": "pern-boilerplate",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple PERN boilerplate",
   "main": "index.js",
   "scripts": {
+    "build-client": "webpack",
     "start": "node server",
-    "start-dev": "webpack -w & nodemon server"
+    "start-dev": "webpack -w & nodemon server",
+    "seed": "node script/seed.js"
   },
   "author": "",
   "license": "ISC",
